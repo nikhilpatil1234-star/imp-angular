@@ -1,0 +1,7 @@
+<div>
+  <h1>data from child to parent</h1>
+  <input type="text" #box [(ngModel)]="example" />
+  {{ example | slice : 0 : 6 }}
+  <button (click)="updateDataEvent.emit(box.value)">update data</button>
+  <button (click)="update(example)">2nd button</button>
+</div>

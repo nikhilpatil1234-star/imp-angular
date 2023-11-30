@@ -1,0 +1,17 @@
+<p>options works!</p>
+<select>
+  <option *ngFor="let hero of superHero" [value]="hero.Id">
+    <select>
+      {{
+        hero.name | CustomHero : hero.Id
+      }}
+    </select>
+  </option>
+</select>
+
+<div class="data-container">
+  <input type="search" [(ngModel)]="value" />
+  <div *ngFor="let x of data | filter : value">
+    <h1>{{ x.id }}. {{ x?.title }}</h1>
+  </div>
+</div>

@@ -1,0 +1,227 @@
+<div
+  class="conatiner"
+  style="width: 100%; display: flex; justify-content: center"
+>
+  <form [formGroup]="userProfile" (ngSubmit)="onSubmit()" style="width: 50%">
+    <div class="form-group">
+      <label> firstname</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="firstName"
+        [ngClass]="{
+          'is-invalid':
+            (userProfile.controls.firstName.errors &&
+              userProfile.get('firstName')?.touched) ||
+            submitted
+        }"
+      />
+
+      <div
+        *ngIf="
+          (userProfile.get('firstName')?.invalid &&
+            userProfile.get('firstName')?.touched) ||
+          userProfile.get('firstName')?.dirty
+        "
+      >
+        <div
+          *ngIf="userProfile.get('firstName')?.hasError('required')"
+          class="errors"
+        >
+          name is required
+        </div>
+      </div>
+
+      <span
+        *ngIf="submitted && userProfile.controls.firstName.errors"
+        class="text-danger"
+      >
+        <span *ngIf="submitted && userProfile.controls.firstName.errors">
+          please enter your name
+        </span>
+      </span>
+      <br />
+      <label>lastname</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="lastName"
+        [ngClass]="{
+          'is-invalid':
+            (userProfile.controls.lastName.errors &&
+              userProfile.get('lastName')?.touched) ||
+            submitted
+        }"
+      />
+      <div
+        *ngIf="
+          (userProfile.get('lastName')?.invalid &&
+            userProfile.get('lastName')?.touched) ||
+          userProfile.get('lastName')?.dirty
+        "
+      >
+        <div
+          *ngIf="userProfile.get('lastName')?.hasError('required')"
+          class="errors"
+          last
+        >
+          lastname is required
+        </div>
+      </div>
+      <span
+        *ngIf="submitted && userProfile.controls.lastName.errors"
+        class="errors"
+      >
+        please enter your lastname
+      </span>
+      <br />
+      <label>password</label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="password"
+        [ngClass]="{
+          'is-invalid':
+            submitted ||
+            (userProfile.controls.password.errors &&
+              userProfile.get('password')?.touched)
+        }"
+      />
+      <div
+        class="errors"
+        *ngIf="
+          (userProfile.get('password')?.invalid &&
+            userProfile.get('password')?.touched) ||
+          userProfile.get('password')?.dirty
+        "
+      >
+        <div *ngIf="userProfile.get('password')?.hasError('required')">
+          password is required
+        </div>
+        <div
+          class="error-text"
+          *ngIf="userProfile.get('password')?.hasError('passwordStrength')"
+        >
+          {{ userProfile.get("password")?.errors?.["passwordStrength"] }}
+        </div>
+      </div>
+      <span
+        *ngIf="submitted && userProfile.controls.password.errors"
+        class="errors"
+      >
+        please enter password
+      </span>
+      <br />
+
+      <label>cnf password</label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="cnfpassword"
+        [ngClass]="{
+          'is-invalid':
+            submitted ||
+            (userProfile.controls.cnfpassword.errors &&
+              userProfile.get('cnfpassword')?.touched)
+        }"
+      />
+      <div
+        *ngIf="
+          submitted && userProfile.get('cnfpassword')?.hasError('required')
+        "
+        class="text-danger"
+      >
+        cnfpassword is required
+      </div>
+      <div *ngIf="userProfile.errors?.['passwordMismatchError']">
+        <span style="color: red"> Password should match</span>
+      </div>
+      <div
+        *ngIf="
+          (userProfile.get('cnfpassword')?.invalid &&
+            userProfile.get('cnfpassword')?.touched) ||
+          userProfile.get('cnfpassword')?.dirty
+        "
+      >
+        <div
+          *ngIf="userProfile.get('cnfpassword')?.hasError('required')"
+          class="errors"
+          last
+        >
+          cnfpassword is required
+        </div>
+      </div>
+      <!-- <div
+        class="errors"
+        *ngIf="
+          userProfile.get('password')?.invalid &&
+          (userProfile.get('password')?.touched ||
+            userProfile.get('password')?.dirty)
+        "
+      >
+        <div *ngIf="userProfile.get('password')?.hasError('required')">
+          password is required
+        </div>
+        <div
+          class="error-text"
+          *ngIf="userProfile.get('password')?.hasError('passwordStrength')"
+        >
+          {{ userProfile.get("password")?.errors?.["passwordStrength"] }}
+        </div>
+      </div> -->
+
+      <!-- <span
+        *ngIf="submitted && userProfile.controls.password.errors"
+        class="text-danger"
+      >
+        weak password
+      </span> -->
+      <br />
+      <label for=""> age</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="age"
+        [ngClass]="{
+          'is-invalid': submitted && userProfile.controls.age.errors,
+        }"
+      />
+      <label for=""> email</label>
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        [ngClass]="{
+          'is-invalid':
+            (userProfile.controls.email.errors &&
+              userProfile.get('email')?.touched) ||
+            submitted
+        }"
+      />
+
+      <div class="text-danger">
+        <span *ngIf="submitted && userProfile.controls.email.errors">
+          email is not valid
+        </span>
+      </div>
+      <div
+        *ngIf="
+          (userProfile.get('email')?.invalid &&
+            userProfile.get('email')?.touched) ||
+          userProfile.get('email')?.dirty
+        "
+      >
+        <div class="errors">email is required</div>
+      </div>
+    </div>
+    <!-- <div formGroupName="address">
+      <label> Address</label>
+      <input type="text" class="form-control" formControlName="address1" />
+      <label> state</label>
+      <input type="text" class="form-control" formControlName="state" />
+      <label> pincode</label>
+      <input type="number" class="form-control" formControlName="pincode" />
+    </div> -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
